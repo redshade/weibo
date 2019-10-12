@@ -5,6 +5,13 @@ Route::get('/', 'StaticPagesController@home') -> name('home');
 Route::get('/help', 'StaticPagesController@help') -> name('help');
 Route::get('/about', 'StaticPagesController@about') -> name('about');
 
-// 用户
+// 注册
 Route::get('/signup', 'UsersController@create') -> name('signup');
+
+// 用户
 Route::resource('users', 'UsersController');
+
+// session
+Route::get('login', 'SessionController@create')->name('login');
+Route::post('login', 'SessionController@store')->name('login');
+Route::delete('logout', 'SessionController@destroy') -> name('logout');
