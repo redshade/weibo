@@ -7,11 +7,25 @@ use App\Models\User;
 
 class UsersController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth', [
+            'except' => ['create', 'store']
+        ]);
+
+        $this->middleware('guest', [
+            'only' => ['create']
+        ]);
+    }
+
+    // 注册页
     public function create() {
         return view('users.create');
     }
 
+    // 个人详情页
     public function show(User $user) {
+        $this->authorize('update', $user);
         return view('users.show', compact('user'));
     }
 
@@ -36,11 +50,13 @@ class UsersController extends Controller
 
     // 更新页
     public function edit(User $user) {
+        $this->authorize('update', $user);
         return view('users.edit', compact('user'));
     }
 
-    // 更新
+    // 更新用户信息
     public function update(User $user, Request $request) {
+        $this->authorize('update', $user);
         $this->validate($request, [
             'name' => 'required|max:50',
             'password' => 'nullable|confirmed|min:6|max:50',
