@@ -22,8 +22,8 @@ class SessionController extends Controller
     // 登录
     public function store(Request $request) {
         $credentials = $this->validate($request, [
-            'email' => 'required|email|max:255',
-            'password' => 'required|min:6',
+            'email' => 'bail|required|email|max:255|exists:users',
+            'password' => 'bail|required|min:6',
         ]);
 
         if (Auth::attempt($credentials, $request -> has('remember'))) {

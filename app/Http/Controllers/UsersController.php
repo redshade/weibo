@@ -39,9 +39,9 @@ class UsersController extends Controller
     // 注册
     public function store(Request $request) {
         $this->validate($request, [
-           'name' => 'required|max:50',
-           'email' => 'required|email|unique:users|max:255',
-           'password' => 'required|confirmed|min:6',
+           'name' => 'bail|required|max:50',
+           'email' => 'bail|required|email|unique:users|max:255|unique:users',
+           'password' => 'bail|required|confirmed|min:6',
         ]);
 
         $user = User::create([
@@ -94,13 +94,11 @@ class UsersController extends Controller
     protected function sendEmailConfirmationTo($user) {
         $view = 'emails.confirm';
         $data = compact('user');
-        $from = 'boss@example.com';
-        $name = 'Boss';
         $to = $user->email;
         $subject = '感谢您注册weibo App，请确认您的邮箱。';
 
-        Mail::send($view, $data, function($message) use ($from, $name, $to, $subject) {
-            $message->from($from, $name)->to($to)->subject($subject);
+        Mail::send($view, $data, function($message) use ($to, $subject) {
+            $message->to($to)->subject($subject);
         });
     }
 
