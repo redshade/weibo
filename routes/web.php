@@ -14,7 +14,7 @@ Route::get('signup/confirm/{token}', 'UsersController@confirmEmail')->name('conf
 // 用户
 Route::resource('/users', 'UsersController');
 
-// session
+// 登录退出
 Route::get('/login', 'SessionController@create')->name('login');
 Route::post('/login', 'SessionController@store')->name('login');
 Route::delete('/logout', 'SessionController@destroy') -> name('logout');
@@ -24,3 +24,6 @@ Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm'
 Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
 Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
+
+// 动态
+Route::resource('statuses', 'StatusesController', ['only' => ['store', 'destroy']]);
