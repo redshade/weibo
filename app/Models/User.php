@@ -57,7 +57,15 @@ class User extends Authenticatable
         return "http://www.gravatar.com/avatar/$hash?s=$size";
     }
 
+    /**
+     * 获取动态
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function statuses() {
         return $this->hasMany(Status::class);
+    }
+
+    public function feed() {
+        return $this->statuses()->orderBy('created_at', 'desc');
     }
 }
