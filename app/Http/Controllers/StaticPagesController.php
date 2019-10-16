@@ -10,6 +10,7 @@ class StaticPagesController extends Controller
 {
 
     /**
+     * 主页
      * @return string
      */
     public function home() {
@@ -22,6 +23,7 @@ class StaticPagesController extends Controller
     }
 
     /**
+     * 帮助
      * @return string
      */
     public function help() {
@@ -29,6 +31,7 @@ class StaticPagesController extends Controller
     }
 
     /**
+     * 关于我们
      * @return string
      */
     public function about() {
