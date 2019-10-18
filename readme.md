@@ -3,7 +3,7 @@
 
 ### Guideline
 ```
-修改.env数据库信息
+修改.env信息
 $ composer install
 $ npm run dev
 ```
